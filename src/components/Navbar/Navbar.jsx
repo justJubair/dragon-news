@@ -1,10 +1,10 @@
-import { NavLink } from "react-router-dom"
-
+import { Link, NavLink } from "react-router-dom"
+import defaultUserImg from "../../assets/user.png"
 
 const Navbar = () => {
     const navLinks = <>
     <li><NavLink to="/" >Home</NavLink></li>
-    <li><NavLink to="/breakingNews">Breaking News</NavLink></li>
+    <li className="mx-2"><NavLink to="/breakingNews">Breaking News</NavLink></li>
     <li><NavLink to="/about">About</NavLink></li>
     </>
   return (
@@ -26,10 +26,15 @@ const Navbar = () => {
       </ul>
     </div>
     <div className="navbar-end">
-      <a className="btn">Button</a>
+    <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+        <div className="w-10 rounded-full">
+          <img src={defaultUserImg} />
+        </div>
+      </label>
+      <Link to="/login" className="btn ml-3">Login</Link>
     </div>
   </div>
   )
 }
 
-export default Navbar
+export default Navbar 
