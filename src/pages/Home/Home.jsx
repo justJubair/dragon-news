@@ -6,6 +6,7 @@ import Marquee from "react-fast-marquee";
 import LoginWith from "../../components/LoginWith/LoginWith";
 import FindUsOn from "../../components/FindUsOn/FindUsOn";
 import Qzone from "../../components/Qzone/Qzone";
+import Advertisement from "../../components/Advertisement/Advertisement";
 const Home = () => {
   return (
     <div>
@@ -32,6 +33,8 @@ const Home = () => {
           {/* find us on */}
           <FindUsOn />
           <Qzone/>
+          {/* Add section */}
+          <Advertisement/>
         </div>
       </div>
     </div>
