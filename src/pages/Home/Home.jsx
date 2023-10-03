@@ -1,5 +1,4 @@
 /* eslint-disable react/no-unescaped-entities */
-
 import Header from "../../components/Header/Header";
 import Navbar from "../../components/Navbar/Navbar";
 import Marquee from "react-fast-marquee";
@@ -9,7 +8,11 @@ import Qzone from "../../components/Qzone/Qzone";
 import Advertisement from "../../components/Advertisement/Advertisement";
 import NewsCategories from "../../components/NewsCategories/NewsCategories";
 import LeftSideNews from "../../components/LeftSideNews/LeftSideNews";
+import { useLoaderData } from "react-router-dom";
+import MainNewsCard from "../../components/MainNewsCard/MainNewsCard";
 const Home = () => {
+  const data = useLoaderData();
+  
   return (
     <div>
       <Header />
@@ -27,7 +30,10 @@ const Home = () => {
           <LeftSideNews/>
         </div>
         <div className="md:col-span-2">
-          <h1>news coming soon</h1>
+          <h2 className="font-bold text-xl mb-4 text-[#403F3F]">Dragon News Home</h2>
+          {
+            data.map(news => <MainNewsCard key={news._id} news={news}/>)
+          }
         </div>
         <div>
           {/* Login with */}
