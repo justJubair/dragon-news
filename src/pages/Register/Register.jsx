@@ -5,12 +5,14 @@ import Navbar from "../../components/Navbar/Navbar";
 const Register = () => {
   return (
     <div>
-        <Navbar/>
-      <section className="mt-6 bg-gray-50 dark:bg-gray-900">
+       <div className="mt-4 mb-12">
+       <Navbar/>
+       </div>
+      <section className=" bg-gray-50 dark:bg-gray-900">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           
             <img
-              className="w-96 mb-4"
+              className="w-96 mb-6"
               src={logo}
               alt="logo"
             />
