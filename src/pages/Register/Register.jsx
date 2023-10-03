@@ -1,8 +1,34 @@
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png"
 import Navbar from "../../components/Navbar/Navbar";
+import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
+import { updateProfile } from "firebase/auth";
+import auth from "../../firebase/firebase.config";
 
 const Register = () => {
+  const {createUser} = useAuth()
+
+  const handleRegister = e=>{
+    e.preventDefault();
+    const form = new FormData(e.currentTarget)
+    const name = form.get('name');
+    const email = form.get('email')
+    const photo = form.get('url')
+    const password = form.get('password')
+    createUser(email, password)
+    .then((result)=>{
+      toast.success("Account created successfully")
+      console.log(result.user)
+      updateProfile(auth.currentUser,{
+        displayName: name, photoURL: photo
+      })
+    })
+    .catch(error=>{
+      toast.error(error)
+    })
+
+  }
   return (
     <div>
        <div className="mt-4 mb-12">
@@ -23,7 +49,7 @@ const Register = () => {
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                 Create and account
               </h1>
-              <form className="space-y-4 md:space-y-6" action="#">
+              <form onSubmit={handleRegister} className="space-y-4 md:space-y-6" action="#">
                 <div>
                   <label
                     htmlFor="name"
@@ -37,7 +63,7 @@ const Register = () => {
                     id="name"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="your name"
-                    required=""
+                    required
                   />
                 </div>
                 <div>
@@ -53,7 +79,7 @@ const Register = () => {
                     id="email"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="name@company.com"
-                    required=""
+                    required
                   />
                 </div>
                 <div>
@@ -69,7 +95,7 @@ const Register = () => {
                     id="url"
                     placeholder="https://your.image.com"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required=""
+                    required
                   />
                 </div>
                 <div>
@@ -85,7 +111,7 @@ const Register = () => {
                     id="password"
                     placeholder="••••••••"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required=""
+                    required
                   />
                 </div>
                 <div className="flex items-start">
@@ -95,7 +121,7 @@ const Register = () => {
                       aria-describedby="terms"
                       type="checkbox"
                       className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                      required=""
+                      required
                     />
                   </div>
                   <div className="ml-3 text-sm">
