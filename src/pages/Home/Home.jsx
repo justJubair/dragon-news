@@ -7,6 +7,8 @@ import LoginWith from "../../components/LoginWith/LoginWith";
 import FindUsOn from "../../components/FindUsOn/FindUsOn";
 import Qzone from "../../components/Qzone/Qzone";
 import Advertisement from "../../components/Advertisement/Advertisement";
+import NewsCategories from "../../components/NewsCategories/NewsCategories";
+import LeftSideNews from "../../components/LeftSideNews/LeftSideNews";
 const Home = () => {
   return (
     <div>
@@ -19,9 +21,10 @@ const Home = () => {
       </div>
       <Navbar />
       {/* main layout */}
-      <div className="grid grid-cols-1 mt-6 md:grid-cols-4 md:mt-14">
+      <div className="grid grid-cols-1 gap-6 mt-6 md:grid-cols-4 md:mt-14">
         <div>
-          <h1>this is left navbar</h1>
+          <NewsCategories/>
+          <LeftSideNews/>
         </div>
         <div className="md:col-span-2">
           <h1>news coming soon</h1>
