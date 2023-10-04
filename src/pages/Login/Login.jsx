@@ -1,11 +1,12 @@
 import Navbar from "../../components/Navbar/Navbar";
 import logo from "../../assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 
 const Login = () => {
   const {loginUser} = useAuth();
+  const navigate = useNavigate()
   const handleLogin = (e) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
@@ -15,6 +16,7 @@ const Login = () => {
     .then((result)=>{
       console.log(result.user)
       toast.success("Logged in")
+      navigate("/")
     })
     .catch(error=>{
       toast.error(error.message)

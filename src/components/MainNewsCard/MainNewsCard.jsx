@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 const MainNewsCard = ({ news }) => {
-  console.log(news);
+  
   // eslint-disable-next-line no-unused-vars
   const { image_url, _id, title, total_view, details, author } = news;
   return (
