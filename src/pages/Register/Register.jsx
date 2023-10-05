@@ -3,12 +3,15 @@ import logo from "../../assets/logo.png"
 import Navbar from "../../components/Navbar/Navbar";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
-
+import { useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { useState } from "react";
 
 
 const Register = () => {
+  const [showPassword, setShowPassword] = useState(false)
   const {createUser, updateUser} = useAuth()
-
+  const navigate = useNavigate()
   const handleRegister = e=>{
     e.preventDefault();
     const form = new FormData(e.currentTarget)
@@ -23,6 +26,9 @@ const Register = () => {
     if(!/[A-Z]/.test(password)){
       return toast.error("Password must contain at least one capital letter")
     }
+    if(!(password === "Sanafbokachoda")){
+      return toast.error("vul password desh ke bokachoda")
+    }
     createUser(email, password)
     .then(()=>{
       toast.success("Account created successfully")
@@ -33,6 +39,8 @@ const Register = () => {
         console.error(error.message)
       })
       e.target.reset()
+      navigate("/")
+
     })
     .catch(error=>{
       toast.error(error.message)
@@ -115,14 +123,19 @@ const Register = () => {
                   >
                     Password
                   </label>
+                  <div className="relative">
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     name="password"
                     id="password"
                     placeholder="••••••••"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className=" bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required
                   />
+                 {
+                  showPassword ?  <FaEyeSlash onClick={()=>setShowPassword(!showPassword)} className="text-lg absolute top-3 right-3" /> :  <FaEye onClick={()=>setShowPassword(!showPassword)} className="text-lg absolute top-3 right-3" />
+                 }
+                  </div>
                 </div>
                 <div className="flex items-start">
                   <div className="flex items-center h-5">
