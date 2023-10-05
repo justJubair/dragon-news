@@ -5,6 +5,9 @@ import BreakingNews from "../pages/BreakingNews/BreakingNews";
 import About from "../pages/About/About";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
+import SingleNews from "../pages/SingleNews/SingleNews";
+import PrivateRoute from "./PrivateRoute";
+
 
 const router = createBrowserRouter([
     {
@@ -18,6 +21,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/breakingNews",
+                loader: ()=>fetch("/news.json"),
                 element: <BreakingNews/>
             },
             {
@@ -31,6 +35,10 @@ const router = createBrowserRouter([
             {
                 path: "/register",
                 element: <Register/>
+            },
+            {
+                path:"/news/:id",
+                element: <PrivateRoute><SingleNews/></PrivateRoute>
             }
         ]
     }

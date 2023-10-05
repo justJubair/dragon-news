@@ -3,11 +3,11 @@ import logo from "../../assets/logo.png"
 import Navbar from "../../components/Navbar/Navbar";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
-import { updateProfile } from "firebase/auth";
-import auth from "../../firebase/firebase.config";
+
+
 
 const Register = () => {
-  const {createUser} = useAuth()
+  const {createUser, updateUser} = useAuth()
 
   const handleRegister = e=>{
     e.preventDefault();
@@ -16,18 +16,28 @@ const Register = () => {
     const email = form.get('email')
     const photo = form.get('url')
     const password = form.get('password')
+    // password validation
+    if(password.length < 6){
+      return toast.error("Password must be six characters or longer")
+    }
+    if(!/[A-Z]/.test(password)){
+      return toast.error("Password must contain at least one capital letter")
+    }
     createUser(email, password)
-    .then((result)=>{
+    .then(()=>{
       toast.success("Account created successfully")
-      console.log(result.user)
-      updateProfile(auth.currentUser,{
-        displayName: name, photoURL: photo
+      
+      updateUser(name, photo)
+      .then()
+      .catch(error=>{
+        console.error(error.message)
       })
+      e.target.reset()
     })
     .catch(error=>{
-      toast.error(error)
+      toast.error(error.message)
     })
-
+   
   }
   return (
     <div>
@@ -87,7 +97,7 @@ const Register = () => {
                     htmlFor="photoURL"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                   Photo URL
+                   Your Photo URL
                   </label>
                   <input
                     type="url"

@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
-  console.log(user?.photoURL)
+  
   const navLinks = (
     <>
       <li>
@@ -92,4 +92,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Navbar; 

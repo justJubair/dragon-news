@@ -1,22 +1,31 @@
 import Navbar from "../../components/Navbar/Navbar";
 import logo from "../../assets/logo.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 
 const Login = () => {
   const {loginUser} = useAuth();
   const navigate = useNavigate()
+  const location = useLocation()
+ 
   const handleLogin = (e) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
     const email = form.get('email')
     const password = form.get('password')
     loginUser(email, password)
-    .then((result)=>{
-      console.log(result.user)
+    .then(()=>{
+      
       toast.success("Logged in")
-      navigate("/")
+      if(location?.state){
+        navigate(location.state)
+      }
+      else{
+
+        navigate("/")
+      }
+      e.target.reset();
     })
     .catch(error=>{
       toast.error(error.message)
@@ -25,7 +34,7 @@ const Login = () => {
   };
   return (
     <div>
-      <div className="mt-4">
+      <div >
         <Navbar />
       </div>
       <section className="bg-gray-50 dark:bg-gray-900">

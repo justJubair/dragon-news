@@ -5,7 +5,7 @@ const useData = ()=>{
     useEffect(()=>{
         const loadData = async()=>{
             try{
-                const res = await fetch("news.json")
+                const res = await fetch("/news.json")
                 const data = await res.json();
                 setData(data)
             }
