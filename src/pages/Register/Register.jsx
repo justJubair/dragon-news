@@ -26,9 +26,8 @@ const Register = () => {
     if(!/[A-Z]/.test(password)){
       return toast.error("Password must contain at least one capital letter")
     }
-    if(!(password === "Sanafbokachoda")){
-      return toast.error("vul password desh ke bokachoda")
-    }
+    
+
     createUser(email, password)
     .then(()=>{
       toast.success("Account created successfully")
